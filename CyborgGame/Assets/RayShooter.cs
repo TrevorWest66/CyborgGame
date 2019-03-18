@@ -24,7 +24,7 @@ public class RayShooter : MonoBehaviour
 		// creates label point in center of screen shifted slightly becasue of label this is needed
 		float posX = (_camera.pixelWidth / 2) - (size / 4);
 		float posY = (_camera.pixelHeight / 2) - (size / 2);
-		GUI.Label(new Rect(posX, posY, 20, 20), "*");
+		GUI.Label(new Rect(posX, posY, size, size), "*");
 	}
 
     void Update()
