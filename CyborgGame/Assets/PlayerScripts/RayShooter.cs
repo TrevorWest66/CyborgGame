@@ -38,8 +38,24 @@ public class RayShooter : MonoBehaviour
 			// pases the ray and a new object with type RaycastHit
 			if (Physics.Raycast(ray, out RaycastHit hit))
 			{
-				// starts the coroutine kicking control to it
-				StartCoroutine(SphereIndicator(hit.point));
+				// this retrieves the object the ray hit
+				GameObject hitObject = hit.transform.gameObject;
+				ReactiveTarget target = hitObject.GetComponent<ReactiveTarget>();
+				GameObject enemy = hit.transform.gameObject;
+				WanderingAI lifeStatus = enemy.GetComponent<WanderingAI>();
+				// this checks if the target is a person though the get component method and if it is
+				// it returns a hit and if not it creates a sphere in the debug console.
+				// get component returns null if the component isnt there.
+				if ((target != null) && (lifeStatus.getAlive()))
+				{
+					target.ReactToHit();
+				}
+				else
+				{
+					// starts the coroutine kicking control to it
+					StartCoroutine(SphereIndicator(hit.point));
+				}
+
 			}
 		}
     }
