@@ -5,7 +5,7 @@ using UnityEngine;
 public class WanderingAI : MonoBehaviour
 {
 	public float speed = 3.0f;
-	public float obstacleRange = 1.0f;
+	public float obstacleRange = 0.5f;
 	private bool _alive;
 	// create a prefab game object and then a var for the instance of the object
 	[SerializeField] private GameObject fireballPrefab;
@@ -53,7 +53,8 @@ public class WanderingAI : MonoBehaviour
 					}
 				}
 				// checks the distance to the object
-				/* else if (hit.distance < obstacleRange)
+				// need to figure out here how to avoid them getting stuck
+				/*else if (hit.distance < obstacleRange)
 				{
 					// gets a random angle and then turns that much and continues moving
 					float angle = Random.Range(-110, 110);
