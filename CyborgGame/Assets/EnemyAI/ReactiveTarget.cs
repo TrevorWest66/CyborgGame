@@ -13,6 +13,7 @@ public class ReactiveTarget : MonoBehaviour
 		if (behavoir != null)
 		{
 			behavoir.setAlive(false);
+			behavoir.turnOffNavMesh();
 		}
 		StartCoroutine(Die());
 		

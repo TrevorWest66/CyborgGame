@@ -1,22 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class WanderingAI : MonoBehaviour
 {
 	public float speed = 3.0f;
-	public float obstacleRange = 0.5f;
+	public float obstacleRange = 0.3f;
 	private bool _alive;
 	// create a prefab game object and then a var for the instance of the object
 	[SerializeField] private GameObject fireballPrefab;
 	private GameObject _fireBall;
 	private Vector3 wayPointPos;
 	private GameObject wayPoint;
+	NavMeshAgent enemyChar;
 
 	void Start()
 	{
 		_alive = true;
 		wayPoint = GameObject.Find("Player");
+		enemyChar = GetComponent<NavMeshAgent>();
 	}
 
     void Update()
@@ -29,7 +32,7 @@ public class WanderingAI : MonoBehaviour
 				wayPoint.transform.position.z);
 			// sets the objects move speed
 			// transform.Translate(0, 0, speed * Time.deltaTime);
-			transform.position = Vector3.MoveTowards(transform.position, wayPointPos, speed * Time.deltaTime);
+			enemyChar.SetDestination(wayPointPos);
 
 			transform.LookAt(wayPointPos);
 
@@ -69,6 +72,13 @@ public class WanderingAI : MonoBehaviour
 	public void setAlive(bool alive)
 	{
 		_alive = alive;
+	}
+	public void turnOffNavMesh()
+	{
+		// this gets called by RayShoot right after set alive and it turns off the nav mesh agent
+		// and adds a rigid body thus allowing the enemy to fall over dead.
+		enemyChar.GetComponent<NavMeshAgent>().enabled = false;
+		Rigidbody body = gameObject.AddComponent<Rigidbody>() as Rigidbody;
 	}
 	public bool getAlive()
 	{
