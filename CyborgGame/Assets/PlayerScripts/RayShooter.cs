@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(Camera))]
 [AddComponentMenu("Shooting Script/RayShooter")]
@@ -16,6 +17,7 @@ public class RayShooter : MonoBehaviour
 		// locks and hides the cursor 
 		Cursor.lockState = CursorLockMode.Locked;
 		Cursor.visible = false;
+		
     }
 
 	void OnGUI()
@@ -29,7 +31,7 @@ public class RayShooter : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if ((Input.GetMouseButtonDown(0)) && (!EventSystem.current.IsPointerOverGameObject()))
 		{
 			// this creates a vector with the coridnates of the rays origin
 			Vector3 point = new Vector3(_camera.pixelWidth / 2, _camera.pixelHeight / 2, 0);
@@ -49,6 +51,7 @@ public class RayShooter : MonoBehaviour
 				if ((target != null) && (lifeStatus.getAlive()))
 				{
 					target.ReactToHit();
+					Messenger.Broadcast(GameEvent.ENEMY_HIT);
 				}
 				else
 				{
