@@ -5,7 +5,8 @@ using UnityEngine.AI;
 
 public class WanderingAI : MonoBehaviour
 {
-	public float speed = 3.0f;
+	public float speed = 5.0f;
+
 	public float obstacleRange = 0.3f;
 	private bool _alive;
 	// create a prefab game object and then a var for the instance of the object
@@ -14,7 +15,9 @@ public class WanderingAI : MonoBehaviour
 	private Vector3 wayPointPos;
 	private GameObject wayPoint;
 	NavMeshAgent enemyChar;
-
+	private float DistanceFromPlayerX;
+	private float DistanceFromPlayerZ;
+	
 	void Start()
 	{
 		_alive = true;
@@ -24,6 +27,8 @@ public class WanderingAI : MonoBehaviour
 
     void Update()
     {
+		DistanceFromPlayerX = Mathf.Abs(transform.position.x - wayPoint.transform.position.x);
+		DistanceFromPlayerZ = Mathf.Abs(transform.position.z - wayPoint.transform.position.z);
 		// only runs if object is alive
 		if (_alive)
 		{
@@ -32,9 +37,19 @@ public class WanderingAI : MonoBehaviour
 				wayPoint.transform.position.z);
 			// sets the objects move speed
 			// transform.Translate(0, 0, speed * Time.deltaTime);
-			enemyChar.SetDestination(wayPointPos);
+			if ((DistanceFromPlayerX > 1) && (DistanceFromPlayerZ > 1))
+			{
+				enemyChar.SetDestination(wayPointPos);
+				GetComponent<NavMeshAgent>().speed = speed;
 
-			transform.LookAt(wayPointPos);
+				transform.LookAt(wayPointPos);
+			}
+			// this is where the attack will go
+			else
+			{
+				enemyChar.SetDestination(transform.position);
+			}
+			
 
 			// makes the ray
 			Ray ray = new Ray(transform.position, transform.forward);
