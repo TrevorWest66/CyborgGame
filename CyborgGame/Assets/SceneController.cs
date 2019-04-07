@@ -13,9 +13,10 @@ public class SceneController : MonoBehaviour
 	float spawnTime = 2.0f;
 	float timer = 0;
 	int numEnemies = 0;
-	int maxEnemies = 3;
-   
-    void Update()
+	int maxEnemies = 7;
+	public float enemySpeed = 3.0f;
+
+	void Update()
     {
 		timer += Time.deltaTime;
 		// if there is no enemy creats a new one
@@ -38,8 +39,10 @@ public class SceneController : MonoBehaviour
 			}
 		}
     }
+
 	public void decreaseEnemyCount()
 	{
 		numEnemies -= 1;
 	}
+
 }

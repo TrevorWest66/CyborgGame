@@ -7,10 +7,13 @@ using UnityEngine;
 [AddComponentMenu("Control Script/FPS Input")]
 public class FPSInput : MonoBehaviour
 {
-	public float moveSpeed = 5.0f;
+
+	public const float baseSpeed = 6.0f;
+	public float moveSpeed;
 	public float gravity = -9.8f;
 	// creats char controller object
 	private CharacterController _charController;
+
 	void Start()
     {
 		// extends this to anything attached to the object in game
@@ -35,5 +38,5 @@ public class FPSInput : MonoBehaviour
 		movement = transform.TransformDirection(movement);
 		_charController.Move(movement);
         
-    } 
+    }
 }
