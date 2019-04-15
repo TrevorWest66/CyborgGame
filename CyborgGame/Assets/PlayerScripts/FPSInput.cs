@@ -22,21 +22,25 @@ public class FPSInput : MonoBehaviour
 
 	void Update()
     {
-		// get movement input
-		float deltaX = Input.GetAxis("Horizontal") * moveSpeed;
-		float deltaZ = Input.GetAxis("Vertical") * moveSpeed;
-		// creates a vector for movement
-		Vector3 movement = new Vector3(deltaX, 0, deltaZ);
-		// this is done so that diagnol movement isnt done at increased speed
-		movement = Vector3.ClampMagnitude(movement, moveSpeed);
-		movement.y = gravity;
+		// enables movement only if game isnt paused
+		if (Time.timeScale != 0)
+		{
+			// get movement input
+			float deltaX = Input.GetAxis("Horizontal") * moveSpeed;
+			float deltaZ = Input.GetAxis("Vertical") * moveSpeed;
+			// creates a vector for movement
+			Vector3 movement = new Vector3(deltaX, 0, deltaZ);
+			// this is done so that diagnol movement isnt done at increased speed
+			movement = Vector3.ClampMagnitude(movement, moveSpeed);
+			movement.y = gravity;
 
-		// insures movement is frame rate independent
-		movement *= Time.deltaTime;
-		// this converts the vector which is in local space to global space
-		// so that it can be passed to the move method in the line after
-		movement = transform.TransformDirection(movement);
-		_charController.Move(movement);
+			// insures movement is frame rate independent
+			movement *= Time.deltaTime;
+			// this converts the vector which is in local space to global space
+			// so that it can be passed to the move method in the line after
+			movement = transform.TransformDirection(movement);
+			_charController.Move(movement);
+		}
         
     }
 }
