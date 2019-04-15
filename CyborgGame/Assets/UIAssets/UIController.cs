@@ -7,6 +7,7 @@ public class UIController : MonoBehaviour
 {
 	[SerializeField] private Text scoreLabel;
 	[SerializeField] private SettingsPopUp settingsPopUp;
+    [SerializeField] private 
 
 	private int _score;
 
@@ -33,6 +34,9 @@ public class UIController : MonoBehaviour
 
 	private void OnEnemyHit()
 	{
+
+
+
 		// increments score when enemy is hit
 		_score += 1;
 		scoreLabel.text = _score.ToString();
