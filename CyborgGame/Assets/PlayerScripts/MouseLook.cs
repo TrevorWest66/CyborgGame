@@ -39,35 +39,38 @@ public class MouseLook : MonoBehaviour
 
     void Update()
     {
-		if (axes == RotationAxes.MouseX)
+		// enables rotation only if game isnt paused
+		if (Time.timeScale != 0)
 		{
-			transform.Rotate(0, Input.GetAxis("Mouse X") * sensitivityX, 0);
-		}
-		else if (axes == RotationAxes.MouseY)
-		{
-			// this increments the roation with mouse movement
-			// it is -= because the camera needs to be inverted to feel normal
-			_rotationX -= Input.GetAxis("Mouse Y") * sensitivityY;
-			// keeps the camera from going too high or too low
-			_rotationX = Mathf.Clamp(_rotationX, minVert, maxVert);
+			if (axes == RotationAxes.MouseX)
+			{
+				transform.Rotate(0, Input.GetAxis("Mouse X") * sensitivityX, 0);
+			}
+			else if (axes == RotationAxes.MouseY)
+			{
+				// this increments the roation with mouse movement
+				// it is -= because the camera needs to be inverted to feel normal
+				_rotationX -= Input.GetAxis("Mouse Y") * sensitivityY;
+				// keeps the camera from going too high or too low
+				_rotationX = Mathf.Clamp(_rotationX, minVert, maxVert);
 
-			// this takes the gathered data and applies it, done automatically in the rotation method
-			float rotationY = transform.localEulerAngles.y;
-			transform.localEulerAngles = new Vector3(_rotationX, rotationY, 0);
-		}
-		else
-		{
-			// same as above handles the verticle rotation
-			_rotationX -= Input.GetAxis("Mouse Y") * sensitivityY;
-			_rotationX = Mathf.Clamp(_rotationX, minVert, maxVert);
+				// this takes the gathered data and applies it, done automatically in the rotation method
+				float rotationY = transform.localEulerAngles.y;
+				transform.localEulerAngles = new Vector3(_rotationX, rotationY, 0);
+			}
+			else
+			{
+				// same as above handles the verticle rotation
+				_rotationX -= Input.GetAxis("Mouse Y") * sensitivityY;
+				_rotationX = Mathf.Clamp(_rotationX, minVert, maxVert);
 
-			// handles the horixontal rotation getting input then incrementing
-			float delta = Input.GetAxis("Mouse X") * sensitivityX;
-			float rotationY = transform.localEulerAngles.y + delta;
+				// handles the horixontal rotation getting input then incrementing
+				float delta = Input.GetAxis("Mouse X") * sensitivityX;
+				float rotationY = transform.localEulerAngles.y + delta;
 
-			transform.localEulerAngles = new Vector3(_rotationX, rotationY, 0);
+				transform.localEulerAngles = new Vector3(_rotationX, rotationY, 0);
+			}
 		}
-        
     }
 
 	public void OnSpeedChanged(float value)

@@ -15,12 +15,14 @@ public class UIController : MonoBehaviour
 	{
 		// declares which method responds to enemy hit
 		Messenger.AddListener(GameEvent.ENEMY_HIT, OnEnemyHit);
+		Messenger.AddListener(GameEvent.PLAYER_DIED, OnPlayerDeath);
 	}
 
 	void OnDestroy()
 	{
 		// when object is destroyed removes listener to avoid errors 
 		Messenger.RemoveListener(GameEvent.ENEMY_HIT, OnEnemyHit);
+		Messenger.RemoveListener(GameEvent.PLAYER_DIED, OnPlayerDeath);
 	}
 
 	void Start()
@@ -47,5 +49,8 @@ public class UIController : MonoBehaviour
 		settingsPopUp.Open();
 	}
 
-
+	public void OnPlayerDeath()
+	{
+		Messenger<float>.Broadcast(GameEvent.SEND_SCORE, _score);
+	}
 }
