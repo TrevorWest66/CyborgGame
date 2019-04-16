@@ -37,8 +37,6 @@ public class PlayerChar : MonoBehaviour
 		{
 			_currentHealth -= damage;
 			healthBar.value = calculateHealth();
-			Debug.Log(calculateHealth());
-			Debug.Log("Health: " + _currentHealth + " max Health: " + _maxHealth);
 			if (_currentHealth <= 0)
 			{
 				dead();
@@ -63,6 +61,6 @@ public class PlayerChar : MonoBehaviour
 
 	public void setFinalScore (float score)
 	{
-		PlayerPrefs.SetFloat("HighScore", score);
+		PlayerPrefs.SetFloat("PlayerScore", score);
 	}
 }
