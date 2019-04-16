@@ -2,25 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class DeathShowScore : MonoBehaviour
 {
-	public Text scoreAtDeath;
+	[SerializeField] private Text scoreAtDeath;
 
 	// Start is called before the first frame update
-	void start()
+	void Start()
 	{
-		/*
-		float value = PlayerPrefs.GetFloat("HighScore", 0);
-		Debug.Log("High Score: " + value);
+		float value = PlayerPrefs.GetFloat("PlayerScore", 0);
 		scoreAtDeath.text = value.ToString();
-		*/
-		scoreAtDeath.text = "fuck this";
-		Debug.Log("this is broken");
 	}
 
-	void update ()
+	public void OnSubmitName(string name)
 	{
-		scoreAtDeath.text = "fuck this";
+		PlayerPrefs.SetString("PlayerName", name);
+	}
+
+	public void returnToMainMenu()
+	{
+		SceneManager.LoadScene(0);
 	}
 }
