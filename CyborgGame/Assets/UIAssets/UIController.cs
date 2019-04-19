@@ -7,7 +7,7 @@ public class UIController : MonoBehaviour
 {
 	[SerializeField] private Text scoreLabel;
 	[SerializeField] private SettingsPopUp settingsPopUp;
-    [SerializeField] private 
+   
 
 	private int _score;
 
