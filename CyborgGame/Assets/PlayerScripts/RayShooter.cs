@@ -55,7 +55,7 @@ public class RayShooter : MonoBehaviour
 		// enables shooing only if game isnt paused
 		if (Time.timeScale != 0)
 		{
-			if ((Input.GetMouseButtonDown(0)) && (!EventSystem.current.IsPointerOverGameObject()))
+			if ((Input.GetKeyDown(KeyCode.RightControl)) && (!EventSystem.current.IsPointerOverGameObject()))
 			{
 				// this creates a vector with the coridnates of the rays origin
 				Vector3 point = new Vector3(_camera.pixelWidth / 2, _camera.pixelHeight / 2, 0);

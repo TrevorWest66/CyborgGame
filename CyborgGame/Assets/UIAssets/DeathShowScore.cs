@@ -7,17 +7,19 @@ using UnityEngine.SceneManagement;
 public class DeathShowScore : MonoBehaviour
 {
 	[SerializeField] private Text scoreAtDeath;
+	[SerializeField] private Text playerName;
 
 	// Start is called before the first frame update
 	void Start()
 	{
-		float value = PlayerPrefs.GetFloat("PlayerScore", 0);
-		scoreAtDeath.text = value.ToString();
+		
 	}
 
-	public void OnSubmitName(string name)
+	public void OnSubmitName()
 	{
-		PlayerPrefs.SetString("PlayerName", name);
+		PlayerPrefs.SetString("PlayerName", playerName.text);
+		float value = PlayerPrefs.GetFloat("PlayerScore", 0);
+		scoreAtDeath.text = value.ToString();
 	}
 
 	public void returnToMainMenu()
