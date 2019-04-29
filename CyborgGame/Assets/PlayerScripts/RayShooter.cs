@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class RayShooter : MonoBehaviour
 {
 	[SerializeField] private SettingsPopUp settingsPopUp;
+	[SerializeField] private GameObject sphere;
 	private Camera _camera;
 
 	void Start()
@@ -80,19 +81,21 @@ public class RayShooter : MonoBehaviour
 					else
 					{
 						// starts the coroutine kicking control to it
-						StartCoroutine(SphereIndicator(hit.point));
+						StartCoroutine(SphereIndicator(hit));
 					}
 
 				}
 			}
 		}
     }
-	private IEnumerator SphereIndicator(Vector3 pos)
+	private IEnumerator SphereIndicator(RaycastHit targetHit)
 	{
 		// creates a sphere for the visual indicator 
-		GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+		Vector3 sphereSize = new Vector3(.1f, .1f, .001f);
+		sphere.transform.localScale = sphereSize;
+		Instantiate(sphere, targetHit.point, Quaternion.FromToRotation(Vector3.forward, targetHit.normal));
 		// sets the position of the sphere to the vector cordinates passed in
-		sphere.transform.position = pos;
+		// sphere.transform.position = pos;
 
 		// this yield causes the program to pause for one second than continue 
 		yield return new WaitForSeconds(1);

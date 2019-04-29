@@ -17,10 +17,12 @@ public class RankingUI : MonoBehaviour
 	[SerializeField] private Text Player4Score;
 	[SerializeField] private Text Player5Score;
 
+
 	void Start()
     {
 		// initialize the scoreboard values
 		setScoreBoard();
+		// resetHighScores();
 
 		// create vars for player name and score
 		string _playerName = PlayerPrefs.GetString("PlayerName");
