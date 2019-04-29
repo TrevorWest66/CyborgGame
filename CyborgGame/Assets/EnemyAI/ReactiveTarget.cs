@@ -27,7 +27,7 @@ public class ReactiveTarget : MonoBehaviour
 
 		// creates a var for the x rotation
 
-		this.transform.Rotate(75, 0, 0);
+		this.transform.Rotate(-75, 0, 0);
 		yield return new WaitForSeconds(1.5f);
 
 		Destroy(this.gameObject);

@@ -7,6 +7,9 @@ public class WanderingAI : MonoBehaviour
 {
 	public float speed = 5.0f;
 
+	public float _fireballCastTimer = 2;
+	private float _timer = 0;
+
 	public float obstacleRange = 0.3f;
 	private bool _alive;
 	// create a prefab game object and then a var for the instance of the object
@@ -37,7 +40,7 @@ public class WanderingAI : MonoBehaviour
 				wayPoint.transform.position.z);
 			// sets the objects move speed
 			// transform.Translate(0, 0, speed * Time.deltaTime);
-			if ((DistanceFromPlayerX > 1) && (DistanceFromPlayerZ > 1))
+			if ((Mathf.Abs(DistanceFromPlayerX) > 1) || (Mathf.Abs(DistanceFromPlayerZ) > 1))
 			{
 				enemyChar.SetDestination(wayPointPos);
 				GetComponent<NavMeshAgent>().speed = speed;
@@ -49,11 +52,12 @@ public class WanderingAI : MonoBehaviour
 			{
 				enemyChar.SetDestination(transform.position);
 			}
-			
+
 
 			// makes the ray
 			Ray ray = new Ray(transform.position, transform.forward);
 			RaycastHit hit;
+			_timer += Time.deltaTime;
 			// checks to see if the ray hit something
 			if (Physics.SphereCast(ray, 0.75f, out hit))
 			{
@@ -61,13 +65,16 @@ public class WanderingAI : MonoBehaviour
 				GameObject hitObject = hit.transform.gameObject;
 				if (hitObject.GetComponent<PlayerChar>())
 				{
-					if (_fireBall == null)
+					if (_timer >= _fireballCastTimer)
 					{
 						// sends the fireball forward after making it and causes it to spin
 						_fireBall = Instantiate(fireballPrefab) as GameObject;
 						// this places firball in fornt of char and  sends it forward 
-						_fireBall.transform.position = transform.TransformPoint(Vector3.forward * 1.5f);
+						Vector3 _fireBallPositon = new Vector3(0, 1.5f, 2);
+						// _fireBall.transform.position = transform.TransformPoint(Vector3.forward * 1.5f);
+						_fireBall.transform.position = transform.TransformPoint(_fireBallPositon);
 						_fireBall.transform.rotation = transform.rotation;
+						_timer = 0;
 					}
 				}
 				// checks the distance to the object
