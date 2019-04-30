@@ -8,19 +8,22 @@ public class StreamVideo : MonoBehaviour
     public VideoPlayer videoPlayer;
     public AudioSource audioSource;
     // Use this for initialization
-    void Start()
+    void OnEnable()
     {
-        StartCoroutine(PlayVideo());
+		StartCoroutine(PlayVideo());
     }
+	
     IEnumerator PlayVideo()
     {
-        videoPlayer.Prepare();
+		
+		videoPlayer.Prepare();
         WaitForSeconds waitForSeconds = new WaitForSeconds(1);
         while (!videoPlayer.isPrepared)
         {
             yield return waitForSeconds;
             break;
         }
+		
         rawImage.texture = videoPlayer.texture;
         videoPlayer.Play();
         audioSource.Play();
