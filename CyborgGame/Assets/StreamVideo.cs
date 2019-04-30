@@ -6,7 +6,7 @@ public class StreamVideo : MonoBehaviour
 {
     public RawImage rawImage;
     public VideoPlayer videoPlayer;
-    public AudioSource audioSource;
+    [SerializeField] public AudioSource audioSource;
     // Use this for initialization
     void OnEnable()
     {

@@ -8,8 +8,10 @@ using UnityEngine.UI;
 [AddComponentMenu("Shooting Script/RayShooter")]
 public class RayShooter : MonoBehaviour
 {
-	[SerializeField] private SettingsPopUp settingsPopUp;
+	// [SerializeField] private SettingsPopUp settingsPopUp;
 	[SerializeField] private GameObject sphere;
+	[SerializeField] private ParticleSystem muzzleFlash;
+	[SerializeField] private AudioSource gunShot;
 	private Camera _camera;
 
 	void Start()
@@ -24,15 +26,6 @@ public class RayShooter : MonoBehaviour
 		
     }
 
-	void OnGUI()
-	{
-		int size = 12;
-		// creates label point in center of screen shifted slightly becasue of label this is needed
-		float posX = (_camera.pixelWidth / 2) - (size / 4);
-		float posY = (_camera.pixelHeight / 2) - (size / 2);
-		GUI.Label(new Rect(posX, posY, size, size), "*");
-	}
-
     void Update()
     {
 		// enables or disables mouse lock and visibility also pauses game if mouse is visible
@@ -43,14 +36,14 @@ public class RayShooter : MonoBehaviour
 				Cursor.lockState = CursorLockMode.Locked;
 				Cursor.visible = false;
 				Time.timeScale = 1f;
-				settingsPopUp.Close();
+				// settingsPopUp.Close();
 			}
 			else
 			{
 				Cursor.lockState = CursorLockMode.None;
 				Cursor.visible = true;
 				Time.timeScale = 0f;
-				settingsPopUp.Open();
+				// settingsPopUp.Open();
 			}
 		}
 		// enables shooing only if game isnt paused
@@ -62,6 +55,8 @@ public class RayShooter : MonoBehaviour
 				Vector3 point = new Vector3(_camera.pixelWidth / 2, _camera.pixelHeight / 2, 0);
 				// creates ray object with origin cordinates
 				Ray ray = _camera.ScreenPointToRay(point);
+				muzzleFlash.Play();
+				gunShot.Play();
 				// pases the ray and a new object with type RaycastHit
 				if (Physics.Raycast(ray, out RaycastHit hit))
 				{
