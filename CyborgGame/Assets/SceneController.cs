@@ -26,8 +26,8 @@ public class SceneController : MonoBehaviour
 		if ((timer >= spawnTime) && (numEnemies < maxEnemies)) 
 		{
 			// iniates a new isntance of enemy
-			int randomXPoint = Random.Range(-120, -80);
-			int randomZPoint = Random.Range(-120, -80);
+			int randomXPoint = Random.Range(-368, 3);
+			int randomZPoint = Random.Range(-755, -345);
 			playerPosition = GameObject.Find("Player").transform.position;
 			double xDistanceFromPlayer = Mathf.Abs(playerPosition.x - randomXPoint);
 			double zDistanceFromPlayer = Mathf.Abs(playerPosition.z - randomZPoint);
