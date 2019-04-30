@@ -6,7 +6,7 @@ using UnityEngine;
 public class UIController : MonoBehaviour
 {
 	[SerializeField] private Text scoreLabel;
-	[SerializeField] private SettingsPopUp settingsPopUp;
+   
 
 	private int _score;
 
@@ -29,20 +29,16 @@ public class UIController : MonoBehaviour
 		// set score to zero and then sets it to the score label
 		_score = 0;
 		scoreLabel.text = _score.ToString();
-
-		settingsPopUp.Close();
 	}
 
 	private void OnEnemyHit()
 	{
+
+
+
 		// increments score when enemy is hit
 		_score += 1;
 		scoreLabel.text = _score.ToString();
-	}
-
-	public void OnOpenSettings()
-	{
-		settingsPopUp.Open();
 	}
 
 	public void OnPlayerDeath()

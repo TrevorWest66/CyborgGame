@@ -23,7 +23,7 @@ public class PlayerChar : MonoBehaviour
 
 	void Start()
     {
-		_maxHealth = 5;
+		_maxHealth = 20;
 		_currentHealth = _maxHealth;
 
 		healthBar.value = calculateHealth();
