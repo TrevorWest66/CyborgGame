@@ -11,14 +11,16 @@ public class SceneController : MonoBehaviour
 	private GameObject _enemy;
 	private Vector3 playerPosition;
 	public int charRotation = 0;
-	float spawnTime = 2.0f;
+	float spawnTime = 1.0f;
 	float timer = 0;
+	float gameTime = 0;
 	int numEnemies = 0;
-	int maxEnemies = 7;
+	float maxEnemies = 7.0f;
 	public float enemySpeed = 3.0f;
 
 	void Update()
     {
+		gameTime += Time.deltaTime;
 		timer += Time.deltaTime;
 		// if there is no enemy creats a new one
 		if ((timer >= spawnTime) && (numEnemies < maxEnemies)) 
@@ -38,6 +40,11 @@ public class SceneController : MonoBehaviour
 				numEnemies += 1;
 				timer = 0;
 			}
+		}
+		maxEnemies = (gameTime / 4) + 7;
+		if (gameTime >= 20)
+		{
+			spawnTime = .5f;
 		}
     }
 
