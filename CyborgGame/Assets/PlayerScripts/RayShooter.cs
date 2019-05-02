@@ -9,6 +9,10 @@ using UnityEngine.UI;
 public class RayShooter : MonoBehaviour
 {
 	[SerializeField] private SettingsPopUp settingsPopUp;
+	[SerializeField] private AudioSource gunShot;
+	[SerializeField] private ParticleSystem muzzleFlash;
+	[SerializeField] private GameObject bulletHole;
+
 	private Camera _camera;
 
 	void Start()
@@ -59,6 +63,8 @@ public class RayShooter : MonoBehaviour
 			{
 				// this creates a vector with the coridnates of the rays origin
 				Vector3 point = new Vector3(_camera.pixelWidth / 2, _camera.pixelHeight / 2, 0);
+				muzzleFlash.Play();
+				gunShot.Play();
 				// creates ray object with origin cordinates
 				Ray ray = _camera.ScreenPointToRay(point);
 				// pases the ray and a new object with type RaycastHit
@@ -90,7 +96,7 @@ public class RayShooter : MonoBehaviour
 	private IEnumerator SphereIndicator(Vector3 pos)
 	{
 		// creates a sphere for the visual indicator 
-		GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+		GameObject sphere = Instantiate(bulletHole) as GameObject;
 		// sets the position of the sphere to the vector cordinates passed in
 		sphere.transform.position = pos;
 

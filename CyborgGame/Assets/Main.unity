@@ -1833,9 +1833,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11ea37afca5fcc94687dd3c1f0494e58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sphere: {fileID: 933142875760405377, guid: 02cbd0c30fb5c824d8eba444d333585f, type: 3}
-  muzzleFlash: {fileID: 941705735}
+  settingsPopUp: {fileID: 0}
   gunShot: {fileID: 1389622532}
+  muzzleFlash: {fileID: 941705735}
+  bulletHole: {fileID: 933142875760405377, guid: 02cbd0c30fb5c824d8eba444d333585f,
+    type: 3}
 --- !u!1 &537007182
 GameObject:
   m_ObjectHideFlags: 0
