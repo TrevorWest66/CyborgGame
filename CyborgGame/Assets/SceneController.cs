@@ -10,13 +10,17 @@ public class SceneController : MonoBehaviour
 	// private var to keep track of instance of enemy in scene
 	private GameObject _enemy;
 	private Vector3 playerPosition;
-	float spawnTime = 2.0f;
+	public int charRotation = 0;
+	float spawnTime = 1.0f;
 	float timer = 0;
+	float gameTime = 0;
 	int numEnemies = 0;
-	int maxEnemies = 3;
-   
-    void Update()
+	float maxEnemies = 7.0f;
+	public float enemySpeed = 3.0f;
+
+	void Update()
     {
+		gameTime += Time.deltaTime;
 		timer += Time.deltaTime;
 		// if there is no enemy creats a new one
 		if ((timer >= spawnTime) && (numEnemies < maxEnemies)) 
@@ -30,16 +34,23 @@ public class SceneController : MonoBehaviour
 			if ((xDistanceFromPlayer > 10)&& (zDistanceFromPlayer > 10))
 			{
 				_enemy = Instantiate(enemyPrefab) as GameObject;
-				_enemy.transform.position = new Vector3(randomXPoint, 1, randomZPoint);
+				_enemy.transform.position = new Vector3(randomXPoint, 0, randomZPoint);
 				float angle = Random.Range(0, 360);
-				_enemy.transform.Rotate(0, angle, 0);
+				_enemy.transform.Rotate(charRotation, angle, 0);
 				numEnemies += 1;
 				timer = 0;
 			}
 		}
+		maxEnemies = (gameTime / 4) + 7;
+		if (gameTime >= 20)
+		{
+			spawnTime = .5f;
+		}
     }
+
 	public void decreaseEnemyCount()
 	{
 		numEnemies -= 1;
 	}
+
 }

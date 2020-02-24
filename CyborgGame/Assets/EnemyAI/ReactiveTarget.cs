@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ReactiveTarget : MonoBehaviour
 {
+	[SerializeField] private ParticleSystem blood;
 	// creates the method that is called in the shoot class
 	public void ReactToHit()
 	{
@@ -13,6 +14,8 @@ public class ReactiveTarget : MonoBehaviour
 		if (behavoir != null)
 		{
 			behavoir.setAlive(false);
+			blood.Play();
+			behavoir.turnOffNavMesh();
 		}
 		StartCoroutine(Die());
 		
@@ -25,8 +28,7 @@ public class ReactiveTarget : MonoBehaviour
 		// the yield is what tells the coroutine to pause. 
 
 		// creates a var for the x rotation
-
-		this.transform.Rotate(75, 0, 0);
+		this.transform.Rotate(-75, 0, 0);
 		yield return new WaitForSeconds(1.5f);
 
 		Destroy(this.gameObject);
